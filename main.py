@@ -1,4 +1,5 @@
 import asyncio
+import os
 from datetime import date
 
 from aiogram import Bot, Dispatcher, Router
@@ -9,7 +10,10 @@ from aiogram.filters import Command, Text
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from zoneinfo import ZoneInfo
 
-TOKEN = "8537666175:AAGYYilnU6Q-MhLyg9vBnkNOJl6LNZtCQqA"
+TOKEN = os.getenv("BOT_TOKEN")
+if not TOKEN:
+    raise RuntimeError("BOT_TOKEN не найден! Проверьте переменные окружения.")
+
 CHAT_ID = -907901634  # id чата или канала
 Chemistry = date(2026, 6, 1)
 Math = date(2026, 6, 4)
