@@ -38,6 +38,10 @@ def calculate_days(target):
     delta = target - today
     return delta.days
 
+@router.message()
+async def get_chat_id(message: Message):
+    await message.answer(f"Chat ID: {message.chat.id}")
+
 
 async def send_daily_message():
     days_left = calculate_days(Chemistry)
@@ -79,6 +83,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
