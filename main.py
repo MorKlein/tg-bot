@@ -41,11 +41,6 @@ def calculate_days(target):
     delta = target - today
     return delta.days
 
-@router.message()
-async def get_chat_id(message: Message):
-    await message.answer(f"Chat ID: {message.chat.id}")
-
-
 async def send_daily_message():
     days_left = calculate_days(Chemistry)
     text = f"⏳ До ЕГЭ по химии осталось <b>{days_left}</b> дней!"
@@ -59,7 +54,12 @@ async def send_daily_message():
 
 TRIGGER_WORDS = ["егэ"]
 
-@dp.message(F.text)
+@router.message(Command(commands=["days"]))
+async def cmd_days(message: Message):
+    await send_daily_message()
+
+
+@router.message(F.text)
 async def handle_text(message: Message):
     text = message.text.lower()  # приводим к нижнему регистру для удобства
     for word in TRIGGER_WORDS:
@@ -67,12 +67,6 @@ async def handle_text(message: Message):
             await message.reply(f"КТО_ТО СКАЗАЛ ЕГЭ??? ЕГЭ УЖЕ СКОРО!!!")
             await send_daily_message()
             break  # чтобы реагировать только на первое найденное слово
-
-
-@dp.message(Command(commands=["days"]))
-async def cmd_days(message: Message):
-    await send_daily_message()
-
 
 async def main():
     logger.info("Запуск бота...")
@@ -89,6 +83,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
