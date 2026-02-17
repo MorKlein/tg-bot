@@ -10,6 +10,9 @@ from aiogram.filters import Command
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from zoneinfo import ZoneInfo
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 TOKEN = os.getenv("BOT_TOKEN")
 if not TOKEN:
     raise RuntimeError("BOT_TOKEN не найден! Проверьте переменные окружения.")
@@ -72,8 +75,8 @@ async def cmd_days(message: Message):
 
 
 async def main():
-    print("Запуск бота...")
-    print("BOT_TOKEN:", TOKEN[:5], "...") 
+    logger.info("Запуск бота...")
+    logger.info("BOT_TOKEN: %s...", TOKEN[:5])
     scheduler.add_job(send_daily_message, "cron", hour=8, minute=0)
     scheduler.start()
 
@@ -85,6 +88,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
