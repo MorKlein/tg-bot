@@ -32,7 +32,6 @@ bot = Bot(
 
 dp = Dispatcher()
 router = Router()
-dp.include_router(router)
 scheduler = AsyncIOScheduler(
     timezone=ZoneInfo("Europe/Moscow")
 )
@@ -78,6 +77,7 @@ async def cmd_days(message: Message):
 async def main():
     logger.info("Запуск бота...")
     logger.info("BOT_TOKEN: %s...", TOKEN[:5])
+    dp.include_router(router)
     scheduler.add_job(send_daily_message, "cron", hour=8, minute=0)
     scheduler.start()
 
@@ -89,6 +89,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
