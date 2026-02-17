@@ -2,7 +2,7 @@ import asyncio
 import os
 from datetime import date
 
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher, Router, F
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -51,10 +51,16 @@ async def send_daily_message():
     text = f"⏳ До ЕГЭ по математике осталось <b>{days_left}</b> дней!"
     await bot.send_message(CHAT_ID, text)
 
-@dp.message(Text(contains="егэ", ignore_case=True))
-async def hello_reply(message: Message):
-    await bot.send_message(CHAT_ID, "КТО-ТО СКАЗАЛ ЕГЭ??? ЕГЭ СКОРО!!!")
-    await send_daily_message()
+TRIGGER_WORDS = ["егэ"]
+
+@dp.message(F.text)
+async def handle_text(message: Message):
+    text = message.text.lower()  # приводим к нижнему регистру для удобства
+    for word in TRIGGER_WORDS:
+        if word in text:
+            await message.reply(f"КТО_ТО СКАЗАЛ ЕГЭ??? ЕГЭ УЖЕ СКОРО!!!")
+            await send_daily_message()
+            break  # чтобы реагировать только на первое найденное слово
 
 
 @dp.message(Command(commands=["days"]))
@@ -74,4 +80,5 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
