@@ -1,6 +1,7 @@
 import asyncio
 import os
 from datetime import date
+import logging
 
 from aiogram import Bot, Dispatcher, Router, F
 from aiogram.types import Message
@@ -88,6 +89,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
