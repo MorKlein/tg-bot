@@ -72,6 +72,8 @@ async def cmd_days(message: Message):
 
 
 async def main():
+    print("Запуск бота...")
+    print("BOT_TOKEN:", TOKEN[:5], "...") 
     scheduler.add_job(send_daily_message, "cron", hour=8, minute=0)
     scheduler.start()
 
@@ -83,6 +85,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
