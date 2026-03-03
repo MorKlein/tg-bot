@@ -18,7 +18,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 if not TOKEN:
     raise RuntimeError("BOT_TOKEN не найден! Проверьте переменные окружения.")
 
-CHAT_ID = -907901634  # id чата или канала
+CHAT_ID = -907901634 
 Chemistry = date(2026, 6, 1)
 Math = date(2026, 6, 4)
 Russian = date(2026, 6, 8)
@@ -61,12 +61,12 @@ async def cmd_days(message: Message):
 
 @router.message(F.text)
 async def handle_text(message: Message):
-    text = message.text.lower()  # приводим к нижнему регистру для удобства
+    text = message.text.lower()
     for word in TRIGGER_WORDS:
         if word in text:
             await message.reply(f"КТО_ТО СКАЗАЛ ЕГЭ??? ЕГЭ УЖЕ СКОРО!!!")
             await send_daily_message()
-            break  # чтобы реагировать только на первое найденное слово
+            break
 
 async def main():
     logger.info("Запуск бота...")
@@ -83,6 +83,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
