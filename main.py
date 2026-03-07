@@ -64,7 +64,7 @@ async def handle_text(message: Message):
     text = message.text.lower()
     for word in TRIGGER_WORDS:
         if word in text:
-            await message.reply(f"КТО_ТО СКАЗАЛ ЕГЭ??? ЕГЭ УЖЕ СКОРО!!!")
+            await message.reply(f"КТО-ТО СКАЗАЛ ЕГЭ??? ЕГЭ УЖЕ СКОРО!!!")
             await send_daily_message()
             break
 
@@ -83,6 +83,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
