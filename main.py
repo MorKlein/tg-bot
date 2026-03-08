@@ -58,7 +58,7 @@ TRIGGER_WORDS = ["егэ"]
 async def cmd_days(message: Message):
     await send_daily_message()
 
-@dp.message(Command("chat_id"))
+@router.message(Command(commands=["chat_id"]))
 async def get_chat_id(message: types.Message):
     await message.answer(f"Chat ID: {message.chat.id}")
 
@@ -87,6 +87,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Программа завершена!")
+
 
 
 
