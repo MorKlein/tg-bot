@@ -19,7 +19,6 @@ if not TOKEN:
     raise RuntimeError("BOT_TOKEN не найден! Проверьте переменные окружения.")
 
 CHAT_ID = -907901634 
-Chemistry = date(2026, 6, 1)
 Math = date(2026, 6, 4)
 Russian = date(2026, 6, 8)
 
@@ -42,9 +41,6 @@ def calculate_days(target):
     return delta.days
 
 async def send_daily_message():
-    days_left = calculate_days(Chemistry)
-    text = f"⏳ До ЕГЭ по химии осталось <b>{days_left}</b> дней!"
-    await bot.send_message(CHAT_ID, text)
     days_left = calculate_days(Russian)
     text = f"⏳ До ЕГЭ по русскому осталось <b>{days_left}</b> дней!"
     await bot.send_message(CHAT_ID, text)
